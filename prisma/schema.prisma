@@ -7,3 +7,27 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model User {
+  id           String    @id
+  username     String    @unique
+  displayName  String    @map("display_name")
+  email        String?   @unique
+  passwordHash String?   @map("password_hash")
+  googleId     String?   @unique @map("google_id")
+  avatarUrl    String?   @map("avatar_url")
+  bio          String?
+  createdAt    DateTime  @default(now()) @map("created_at")
+  sessions     Session[]
+
+  @@map("users")
+}
+
+model Session {
+  id        String   @id
+  userId    String   @map("user_id")
+  expiresAt DateTime @map("expires_at")
+  user      User     @relation(references: [id], fields: [userId], onDelete: Cascade)
+
+  @@map("sessions")
+}

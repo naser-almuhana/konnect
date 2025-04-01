@@ -8,6 +8,8 @@
     "start": "next start",
     "lint": "next lint",
     "prettier": "prettier --write .",
+    "db:generate": "npx prisma generate",
+    "db:studio": "npx prisma studio",
     "postinstall": "prisma generate"
   },
   "dependencies": {
