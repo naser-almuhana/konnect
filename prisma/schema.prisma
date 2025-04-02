@@ -18,10 +18,10 @@ model User {
   image           String?
   createdAt       DateTime  @default(now())
   updatedAt       DateTime  @updatedAt
+  bio             String?
   sessions        Session[]
   accounts        Account[]
-
-  bio String?
+  Post            Post[]
 
   @@map("users")
 }
@@ -70,4 +70,16 @@ model Verification {
   updatedAt  DateTime @updatedAt
 
   @@map("verifications")
+}
+
+model Post {
+  id      String @id @default(cuid())
+  content String
+  userId  String
+  user    User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("posts")
 }

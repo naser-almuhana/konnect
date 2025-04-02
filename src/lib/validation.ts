@@ -16,3 +16,7 @@ export const loginSchema = z.object({
   username: requiredString,
   password: requiredString,
 })
+
+export const createPostSchema = z.object({
+  content: requiredString,
+})
