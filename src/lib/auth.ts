@@ -9,8 +9,6 @@ import { db } from "@/lib/db"
 
 export const auth = betterAuth({
   appName: "konnect_better_auth",
-  baseURL: process.env.BETTER_AUTH_URL,
-  secret: process.env.BETTER_AUTH_SECRET,
   database: prismaAdapter(db, {
     provider: "postgresql",
   }),
