@@ -29,6 +29,7 @@ export const auth = betterAuth({
     maxPasswordLength: 20,
   },
   plugins: [username()],
+  trustedOrigins: [process.env.BETTER_AUTH_URL as string],
 } satisfies BetterAuthOptions)
 
 export const validateRequest = cache(async () => {
