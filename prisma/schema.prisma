@@ -9,25 +9,65 @@ datasource db {
 }
 
 model User {
-  id           String    @id
-  username     String    @unique
-  displayName  String    @map("display_name")
-  email        String?   @unique
-  passwordHash String?   @map("password_hash")
-  googleId     String?   @unique @map("google_id")
-  avatarUrl    String?   @map("avatar_url")
-  bio          String?
-  createdAt    DateTime  @default(now()) @map("created_at")
-  sessions     Session[]
+  id              String    @id
+  name            String    @unique
+  username        String    @unique
+  displayUsername String    @unique
+  email           String    @unique
+  emailVerified   Boolean   @default(false)
+  image           String?
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+  sessions        Session[]
+  accounts        Account[]
+
+  bio String?
 
   @@map("users")
 }
 
 model Session {
   id        String   @id
-  userId    String   @map("user_id")
-  expiresAt DateTime @map("expires_at")
-  user      User     @relation(references: [id], fields: [userId], onDelete: Cascade)
+  userId    String
+  token     String
+  expiresAt DateTime
+  ipAddress String? //The IP address of the device
+  userAgent String? //The user agent information of the device
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@map("sessions")
+}
+
+model Account {
+  id                    String    @id
+  userId                String
+  accountId             String
+  providerId            String
+  accessToken           String?
+  refreshToken          String?
+  accessTokenExpiresAt  DateTime?
+  refreshTokenExpiresAt DateTime?
+  scope                 String?
+  idToken               String? //The id token returned from the provider
+  password              String?
+  createdAt             DateTime  @default(now())
+  updatedAt             DateTime  @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("accounts")
+}
+
+model Verification {
+  id         String   @id
+  identifier String
+  value      String
+  expiresAt  DateTime
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@map("verifications")
 }
