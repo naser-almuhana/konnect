@@ -5,7 +5,7 @@ import "dotenv/config"
 import ws from "ws"
 
 neonConfig.webSocketConstructor = ws
-neonConfig.poolQueryViaFetch = true
+// neonConfig.poolQueryViaFetch = true
 
 declare global {
   // eslint-disable-next-line no-var
