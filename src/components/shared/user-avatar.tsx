@@ -1,14 +1,19 @@
 import { UserIcon } from "lucide-react"
 
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+  type AvatarProps,
+} from "@/components/ui/avatar"
 
-interface UserAvatarProps {
+interface UserAvatarProps extends AvatarProps {
   src: string | undefined
 }
 
-export function UserAvatar({ src }: UserAvatarProps) {
+export function UserAvatar({ src, ...props }: UserAvatarProps) {
   return (
-    <Avatar>
+    <Avatar {...props}>
       <AvatarImage src={src} alt={src} />
       <AvatarFallback>
         <UserIcon size={16} />

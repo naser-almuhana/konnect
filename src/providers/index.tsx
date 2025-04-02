@@ -1,5 +1,6 @@
 import { Toaster } from "@/components/ui/sonner"
 
+import { ReactQueryProvider } from "./react-query-provider"
 import { ThemeProvider } from "./theme-provider"
 
 export function Providers({
@@ -8,9 +9,11 @@ export function Providers({
   children: React.ReactNode
 }>) {
   return (
-    <ThemeProvider>
-      {children}
-      <Toaster />
-    </ThemeProvider>
+    <ReactQueryProvider>
+      <ThemeProvider>
+        {children}
+        <Toaster />
+      </ThemeProvider>
+    </ReactQueryProvider>
   )
 }

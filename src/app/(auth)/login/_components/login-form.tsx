@@ -14,7 +14,7 @@ import { loginSchema } from "@/lib/validation"
 
 import { loginDefaultValues } from "@/constants"
 
-import LoadingButton from "@/components/shared/Loading-button"
+import { LoadingButton } from "@/components/shared/Loading-button"
 import { PasswordInput } from "@/components/shared/Password-input"
 import { CustomAlert } from "@/components/shared/custom-alert"
 import {

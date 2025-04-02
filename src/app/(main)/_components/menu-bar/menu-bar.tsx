@@ -6,8 +6,8 @@ import { validateRequest } from "@/lib/auth"
 
 import { Button } from "@/components/ui/button"
 
-import { MessagesButton } from "./messages-button"
-import { NotificationsButton } from "./notifications-button"
+import { MessagesButton } from "./components/messages-button"
+import { NotificationsButton } from "./components/notifications-button"
 
 export async function MenuBar({ className }: React.ComponentProps<"div">) {
   const { user } = await validateRequest()
@@ -18,7 +18,7 @@ export async function MenuBar({ className }: React.ComponentProps<"div">) {
     <div className={className}>
       <Button
         variant="ghost"
-        className="flex items-center justify-start gap-3"
+        className="flex items-center justify-start gap-2"
         title="Home"
         asChild
       >
@@ -35,7 +35,7 @@ export async function MenuBar({ className }: React.ComponentProps<"div">) {
       {/* <MessagesButton initialState={{ unreadCount: unreadMessagesCount }} /> */}
       <Button
         variant="ghost"
-        className="flex items-center justify-start gap-3"
+        className="flex items-center justify-start gap-2"
         title="Bookmarks"
         asChild
       >

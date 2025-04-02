@@ -2,16 +2,8 @@
 
 import { useRouter } from "next/navigation"
 
-import {
-  CheckIcon,
-  LogOutIcon,
-  MonitorIcon,
-  MoonIcon,
-  PaletteIcon,
-  SunIcon,
-  UserIcon,
-} from "lucide-react"
-import { useTheme } from "next-themes"
+import { useQueryClient } from "@tanstack/react-query"
+import { LogOutIcon, UserIcon } from "lucide-react"
 
 import { authClient, useSession } from "@/lib/auth-client"
 
@@ -22,24 +14,23 @@ import {
   DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuLabel,
-  DropdownMenuPortal,
   DropdownMenuSeparator,
-  DropdownMenuSub,
-  DropdownMenuSubContent,
-  DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+
+import { ThemeMenu } from "./theme-menu"
 
 export function UserButton() {
   const router = useRouter()
 
+  const queryClient = useQueryClient()
   const { data } = useSession()
-  const { theme, setTheme } = useTheme()
 
   const handleLogout = async () => {
     await authClient.signOut({
       fetchOptions: {
         onSuccess: () => {
+          queryClient.clear()
           router.push("/login")
         },
       },
@@ -66,31 +57,7 @@ export function UserButton() {
             Profile
           </DropdownMenuItem>
 
-          <DropdownMenuSub>
-            <DropdownMenuSubTrigger className="gap-2">
-              <PaletteIcon className="text-muted-foreground size-4" />
-              Theme
-            </DropdownMenuSubTrigger>
-            <DropdownMenuPortal>
-              <DropdownMenuSubContent>
-                <DropdownMenuItem onClick={() => setTheme("system")}>
-                  <MonitorIcon className="size-4" />
-                  System
-                  {theme === "system" && <CheckIcon className="ms-2 size-4" />}
-                </DropdownMenuItem>
-                <DropdownMenuItem onClick={() => setTheme("light")}>
-                  <SunIcon className="size-4" />
-                  Light
-                  {theme === "light" && <CheckIcon className="ms-2 size-4" />}
-                </DropdownMenuItem>
-                <DropdownMenuItem onClick={() => setTheme("dark")}>
-                  <MoonIcon className="size-4" />
-                  Dark
-                  {theme === "dark" && <CheckIcon className="ms-2 size-4" />}
-                </DropdownMenuItem>
-              </DropdownMenuSubContent>
-            </DropdownMenuPortal>
-          </DropdownMenuSub>
+          <ThemeMenu />
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
         <DropdownMenuItem onClick={handleLogout}>
