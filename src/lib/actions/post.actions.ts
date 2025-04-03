@@ -8,17 +8,16 @@ import { createPostSchema } from "@/lib/validation"
 
 export async function createPost(input: { content: string }) {
   const { user } = await validateRequest()
-
   if (!user) throw new Error("Unauthorized")
 
   const { content } = createPostSchema.parse(input)
 
   const newPost = await db.post.create({
+    include: getPostDataInclude(user.id),
     data: {
       content,
       userId: user.id,
     },
-    include: getPostDataInclude(user.id),
   })
 
   return newPost

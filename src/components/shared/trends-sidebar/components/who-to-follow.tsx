@@ -5,9 +5,8 @@ import { getUserDataSelect } from "@/types/db.types"
 import { validateRequest } from "@/lib/auth"
 import { db } from "@/lib/db"
 
-import { Button } from "@/components/ui/button"
-
-import { UserAvatar } from "../../user-avatar"
+import { FollowButton } from "@/components/shared/follow-button"
+import { UserAvatar } from "@/components/shared/user-avatar"
 
 export async function WhoToFollow() {
   const { user } = await validateRequest()
@@ -17,6 +16,11 @@ export async function WhoToFollow() {
     where: {
       NOT: {
         id: user.id,
+      },
+      followers: {
+        none: {
+          followerId: user.id,
+        },
       },
     },
     select: getUserDataSelect(user.id),
@@ -45,17 +49,15 @@ export async function WhoToFollow() {
             </div>
           </Link>
 
-          <Button>Follow</Button>
-
-          {/* <FollowButton 
+          <FollowButton
             userId={user.id}
             initialState={{
-              followers: user._count.followers,
+              followersCount: user._count.followers,
               isFollowedByUser: user.followers.some(
                 ({ followerId }) => followerId === user.id,
               ),
             }}
-          /> */}
+          />
         </div>
       ))}
     </div>

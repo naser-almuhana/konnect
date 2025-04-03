@@ -1,5 +1,6 @@
 "use client"
 
+import "@/assets/styles/editor.css"
 import Placeholder from "@tiptap/extension-placeholder"
 import { EditorContent, useEditor } from "@tiptap/react"
 import StarterKit from "@tiptap/starter-kit"
@@ -11,13 +12,13 @@ import { LoadingButton } from "@/components/shared/Loading-button"
 import { UserAvatar } from "@/components/shared/user-avatar"
 
 import { useCreatePostMutation } from "./mutations"
-import "./styles.css"
 
 export function PostEditor() {
   const { data } = useSession()
   const mutation = useCreatePostMutation()
 
   const editor = useEditor({
+    immediatelyRender: false,
     extensions: [
       StarterKit.configure({ bold: false, italic: false }),
       Placeholder.configure({ placeholder: "Write something..." }),
@@ -31,9 +32,7 @@ export function PostEditor() {
 
   async function onSubmit() {
     mutation.mutate(
-      {
-        content: input,
-      },
+      { content: input },
       {
         onSuccess: () => {
           editor?.commands.clearContent()

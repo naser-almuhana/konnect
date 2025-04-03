@@ -2,12 +2,24 @@ import { Prisma } from "@prisma/client"
 
 // USER
 export function getUserDataSelect(loggedInUserId: string) {
-  // console.log(loggedInUserId)
   return {
     id: true,
     username: true,
     displayUsername: true,
     image: true,
+    followers: {
+      where: {
+        followerId: loggedInUserId,
+      },
+      select: {
+        followerId: true,
+      },
+    },
+    _count: {
+      select: {
+        followers: true,
+      },
+    },
   } satisfies Prisma.UserSelect
 }
 
@@ -31,4 +43,9 @@ export type PostData = Prisma.PostGetPayload<{
 export interface PostsPage {
   posts: PostData[]
   nextCursor: string | null
+}
+
+export interface FollowerInfo {
+  followersCount: number
+  isFollowedByUser: boolean
 }
