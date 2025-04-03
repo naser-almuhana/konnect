@@ -1,7 +1,7 @@
 import Link from "next/link"
 
-import { SearchField } from "@/components/shared/search-field"
-
+import { GithubButton } from "./components/github-button"
+import { SearchField } from "./components/search-field"
 import { UserButton } from "./components/user-button"
 
 export function Header() {
@@ -12,7 +12,11 @@ export function Header() {
           konnect
         </Link>
         <SearchField />
-        <UserButton />
+
+        <div className="flex items-center justify-center gap-2 sm:ms-auto">
+          <GithubButton />
+          <UserButton />
+        </div>
       </div>
     </header>
   )

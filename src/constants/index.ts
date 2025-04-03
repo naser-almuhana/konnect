@@ -9,3 +9,5 @@ export const signupDefaultValues = {
 }
 
 export const PER_PAGE = Number(process.env.PER_PAGE) || 5
+
+export const GITHUB_REPO_URL = "https://github.com/naseralmuhana/konnect"

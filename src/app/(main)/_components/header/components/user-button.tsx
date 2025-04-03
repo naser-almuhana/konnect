@@ -40,9 +40,7 @@ export function UserButton() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <button className="flex-none rounded-full sm:ms-auto">
-          <UserAvatar src={data?.user.image || ""} />
-        </button>
+        <UserAvatar src={data?.user.image || ""} />
       </DropdownMenuTrigger>
       <DropdownMenuContent>
         <DropdownMenuLabel>
