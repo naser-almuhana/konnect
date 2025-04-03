@@ -1,13 +1,12 @@
 import { NextResponse } from "next/server"
 
+import type { UserIdParams } from "@/types"
 import type { FollowerInfo } from "@/types/db.types"
 
 import { validateRequest } from "@/lib/auth"
 import { db } from "@/lib/db"
 
-type Params = { params: Promise<{ userId: string }> }
-
-export async function GET(req: Request, { params }: Params) {
+export async function GET(req: Request, { params }: UserIdParams) {
   try {
     const { userId } = await params
 
@@ -51,7 +50,7 @@ export async function GET(req: Request, { params }: Params) {
   }
 }
 
-export async function POST(req: Request, { params }: Params) {
+export async function POST(req: Request, { params }: UserIdParams) {
   try {
     const { userId } = await params
 
@@ -86,7 +85,7 @@ export async function POST(req: Request, { params }: Params) {
   }
 }
 
-export async function DELETE(req: Request, { params }: Params) {
+export async function DELETE(req: Request, { params }: UserIdParams) {
   try {
     const { userId } = await params
 

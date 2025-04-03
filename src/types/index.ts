@@ -13,3 +13,6 @@ export type IconType = {
   name: keyof typeof icons
   props?: LucideProps
 }
+
+export type UsernameParams = { params: Promise<{ username: string }> }
+export type UserIdParams = { params: Promise<{ userId: string }> }

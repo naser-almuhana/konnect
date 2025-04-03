@@ -9,14 +9,15 @@ import {
 
 interface UserAvatarProps extends AvatarProps {
   src: string | undefined
+  size?: number
 }
 
-export function UserAvatar({ src, ...props }: UserAvatarProps) {
+export function UserAvatar({ src, size = 16, ...props }: UserAvatarProps) {
   return (
     <Avatar {...props}>
       <AvatarImage src={src} alt={src} />
       <AvatarFallback>
-        <UserIcon size={16} />
+        <UserIcon size={size} />
       </AvatarFallback>
     </Avatar>
   )

@@ -32,7 +32,7 @@ export function FollowButton({ userId, initialState }: FollowButtonProps) {
   // Mutation function to handle follow/unfollow actions
   const { mutate } = useMutation({
     mutationFn: () =>
-      data?.isFollowedByUser
+      data.isFollowedByUser
         ? kyInstance.delete(`/api/users/${userId}/followers`) // Unfollow request
         : kyInstance.post(`/api/users/${userId}/followers`), // Follow request
 
@@ -67,10 +67,10 @@ export function FollowButton({ userId, initialState }: FollowButtonProps) {
 
   return (
     <Button
-      variant={data?.isFollowedByUser ? "secondary" : "default"}
+      variant={data.isFollowedByUser ? "secondary" : "default"}
       onClick={() => mutate()} // Trigger mutation on button click
     >
-      {data?.isFollowedByUser ? "Unfollow" : "Follow"}
+      {data.isFollowedByUser ? "Unfollow" : "Follow"}
     </Button>
   )
 }

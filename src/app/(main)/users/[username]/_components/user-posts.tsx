@@ -10,7 +10,11 @@ import { PostsSkeleton } from "@/components/posts/posts-skeleton"
 import InfiniteScrollContainer from "@/components/shared/infinite-scroll-container"
 import { Post } from "@/components/shared/post"
 
-export function ForYouFeed() {
+interface UserPostsProps {
+  userId: string
+}
+
+export function UserPosts({ userId }: UserPostsProps) {
   const {
     data,
     fetchNextPage,
@@ -19,15 +23,14 @@ export function ForYouFeed() {
     isFetchingNextPage,
     status,
   } = useInfiniteQuery({
-    queryKey: ["post-feed", "for-you"],
-    queryFn: ({ pageParam }) => {
-      return kyInstance
+    queryKey: ["post-feed", "user-posts", userId],
+    queryFn: ({ pageParam }) =>
+      kyInstance
         .get(
-          "/api/posts/for-you",
+          `/api/users/${userId}/posts`,
           pageParam ? { searchParams: { cursor: pageParam } } : {},
         )
-        .json<PostsPage>()
-    },
+        .json<PostsPage>(),
     initialPageParam: null as string | null,
     getNextPageParam: (lastPage) => lastPage.nextCursor,
   })
@@ -41,7 +44,7 @@ export function ForYouFeed() {
   if (status === "success" && !posts.length && !hasNextPage) {
     return (
       <p className="text-muted-foreground text-center">
-        No one has posted anything yet.
+        This user hasn&apos;t posted anything yet.
       </p>
     )
   }

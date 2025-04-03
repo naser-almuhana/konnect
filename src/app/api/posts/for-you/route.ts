@@ -4,13 +4,11 @@ import { PostsPage, getPostDataInclude } from "@/types/db.types"
 
 import { validateRequest } from "@/lib/auth"
 import { db } from "@/lib/db"
-import { delay } from "@/lib/utils"
 
 import { PER_PAGE } from "@/constants"
 
 export async function GET(req: NextRequest) {
   try {
-    await delay(500)
     const cursor = req.nextUrl.searchParams.get("cursor") || undefined
 
     const perPage = PER_PAGE

@@ -1,6 +1,6 @@
 "use client"
 
-import { UseQueryResult, useQuery } from "@tanstack/react-query"
+import { useQuery } from "@tanstack/react-query"
 
 import { FollowerInfo } from "@/types/db.types"
 
@@ -12,12 +12,8 @@ import { kyInstance } from "@/lib/ky"
  * @param {string} userId - The ID of the user whose follower info is being fetched.
  * @param {FollowerInfo} initialState - The initial state to populate the query before fetching.
  *
- * @returns {UseQueryResult<FollowerInfo>} Query result containing the follower data, loading state, and error state.
  */
-export function useFollowerInfo(
-  userId: string,
-  initialState: FollowerInfo,
-): UseQueryResult<FollowerInfo> {
+export function useFollowerInfo(userId: string, initialState: FollowerInfo) {
   const query = useQuery({
     queryKey: ["follower-info", userId], // Unique key for caching and refetching
     queryFn: () =>

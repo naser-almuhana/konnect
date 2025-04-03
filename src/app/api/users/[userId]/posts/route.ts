@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server"
 
+import { UserIdParams } from "@/types"
 import { PostsPage, getPostDataInclude } from "@/types/db.types"
 
 import { validateRequest } from "@/lib/auth"
@@ -7,8 +8,9 @@ import { db } from "@/lib/db"
 
 import { PER_PAGE } from "@/constants"
 
-export async function GET(req: NextRequest) {
+export async function GET(req: NextRequest, { params }: UserIdParams) {
   try {
+    const { userId } = await params
     const cursor = req.nextUrl.searchParams.get("cursor") || undefined
 
     const perPage = PER_PAGE
@@ -18,15 +20,7 @@ export async function GET(req: NextRequest) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
 
     const posts = await db.post.findMany({
-      where: {
-        user: {
-          followers: {
-            some: {
-              followerId: user.id,
-            },
-          },
-        },
-      },
+      where: { userId },
       include: getPostDataInclude(user.id),
       orderBy: { createdAt: "desc" },
       take: perPage + 1,

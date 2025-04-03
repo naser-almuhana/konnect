@@ -21,7 +21,7 @@ model User {
   bio             String?
   sessions        Session[]
   accounts        Account[]
-  Post            Post[]
+  posts           Post[]
   following       Follow[]  @relation("Following")
   followers       Follow[]  @relation("Followers")
 

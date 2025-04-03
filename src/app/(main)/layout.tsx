@@ -5,7 +5,7 @@ import { validateRequest } from "@/lib/auth"
 import { Header } from "./_components/header"
 import { MenuBar } from "./_components/menu-bar"
 
-export default async function RootLayout({
+export default async function MainLayout({
   children,
 }: Readonly<{
   children: React.ReactNode
