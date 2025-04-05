@@ -8,10 +8,10 @@ import StarterKit from "@tiptap/starter-kit"
 import { useSession } from "@/lib/auth-client"
 import { cn } from "@/lib/utils"
 
+import { useCreatePostMutation } from "@/hooks/use-create-post.mutation"
+
 import { LoadingButton } from "@/components/shared/Loading-button"
 import { UserAvatar } from "@/components/shared/user-avatar"
-
-import { useCreatePostMutation } from "./mutations"
 
 export function PostEditor() {
   const { data } = useSession()
@@ -44,7 +44,7 @@ export function PostEditor() {
   return (
     <div className="bg-card flex flex-col gap-5 rounded-2xl p-5 shadow-sm">
       <div className="flex gap-5">
-        <UserAvatar src={data?.user.image || ""} />
+        <UserAvatar src={data?.user.image} />
         <EditorContent
           editor={editor}
           className={cn(

@@ -9,9 +9,9 @@ import { kyInstance } from "@/lib/ky"
 
 import { useFollowerInfo } from "@/hooks/use-follower-info"
 
-import { Button } from "@/components/ui/button"
+import { Button, type ButtonProps } from "@/components/ui/button"
 
-interface FollowButtonProps {
+interface FollowButtonProps extends ButtonProps {
   userId: string
   initialState: FollowerInfo
 }
@@ -20,7 +20,11 @@ interface FollowButtonProps {
  * A button component that allows users to follow/unfollow another user.
  * Uses optimistic UI updates for a seamless experience.
  */
-export function FollowButton({ userId, initialState }: FollowButtonProps) {
+export function FollowButton({
+  userId,
+  initialState,
+  ...props
+}: FollowButtonProps) {
   const queryClient = useQueryClient()
 
   // Fetch current follower state using React Query
@@ -69,6 +73,7 @@ export function FollowButton({ userId, initialState }: FollowButtonProps) {
     <Button
       variant={data.isFollowedByUser ? "secondary" : "default"}
       onClick={() => mutate()} // Trigger mutation on button click
+      {...props}
     >
       {data.isFollowedByUser ? "Unfollow" : "Follow"}
     </Button>

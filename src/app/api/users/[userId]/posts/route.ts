@@ -10,14 +10,14 @@ import { PER_PAGE } from "@/constants"
 
 export async function GET(req: NextRequest, { params }: UserIdParams) {
   try {
+    const { user } = await validateRequest()
+    if (!user)
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
+
     const { userId } = await params
     const cursor = req.nextUrl.searchParams.get("cursor") || undefined
 
     const perPage = PER_PAGE
-
-    const { user } = await validateRequest()
-    if (!user)
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
 
     const posts = await db.post.findMany({
       where: { userId },

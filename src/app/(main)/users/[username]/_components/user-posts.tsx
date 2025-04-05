@@ -6,9 +6,9 @@ import type { PostsPage } from "@/types/db.types"
 
 import { kyInstance } from "@/lib/ky"
 
-import { PostsSkeleton } from "@/components/posts/posts-skeleton"
-import InfiniteScrollContainer from "@/components/shared/infinite-scroll-container"
+import { InfiniteScrollContainer } from "@/components/shared/infinite-scroll-container"
 import { Post } from "@/components/shared/post"
+import { PostsSkeleton } from "@/components/skeletons/posts-skeleton"
 
 interface UserPostsProps {
   userId: string

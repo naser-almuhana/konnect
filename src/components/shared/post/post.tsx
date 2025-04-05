@@ -5,7 +5,9 @@ import type { PostData } from "@/types/db.types"
 import { useSession } from "@/lib/auth-client"
 import { formatRelativeDate } from "@/lib/utils"
 
+import { Linkify } from "@/components/shared/linkify"
 import { UserAvatar } from "@/components/shared/user-avatar"
+import { UserTooltip } from "@/components/shared/user-tooltip"
 
 import { PostMoreMenu } from "./components/post-more-menu"
 
@@ -19,17 +21,20 @@ export function Post({ post }: PostProps) {
     <article className="group/post bg-card h-40 space-y-3 rounded-2xl p-5 shadow-sm">
       <div className="flex justify-between gap-3">
         <div className="flex flex-wrap gap-3">
-          <Link href={`/users/${post.user.username}`}>
-            <UserAvatar src={post.user.image || ""} />
-          </Link>
-          <div>
-            <Link
-              href={`/users/${post.user.username}`}
-              className="block font-medium hover:underline"
-            >
-              {post.user.displayUsername}
+          <UserTooltip user={post.user}>
+            <Link href={`/users/${post.user.username}`}>
+              <UserAvatar src={post.user.image} />
             </Link>
-
+          </UserTooltip>
+          <div>
+            <UserTooltip user={post.user}>
+              <Link
+                href={`/users/${post.user.username}`}
+                className="block font-medium hover:underline"
+              >
+                {post.user.displayUsername}
+              </Link>
+            </UserTooltip>
             <Link
               href={`/posts/${post.id}`}
               className="text-muted-foreground block text-sm hover:underline"
@@ -46,7 +51,9 @@ export function Post({ post }: PostProps) {
           />
         )}
       </div>
-      {post.content}
+      <Linkify>
+        <div className="break-words whitespace-pre-line">{post.content}</div>
+      </Linkify>
     </article>
   )
 }

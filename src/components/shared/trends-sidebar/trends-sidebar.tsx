@@ -1,9 +1,10 @@
 import { Suspense } from "react"
 
+import { TrendingTopicsSkeleton } from "@/components/skeletons/trending-topics-skeleton"
+import { WhoToFollowSkeleton } from "@/components/skeletons/who-to-follow-skeleton"
+
 import { TrendingTopics } from "./components/trending-topics"
-import { TrendingTopicsSkeleton } from "./components/trending-topics-skeleton"
 import { WhoToFollow } from "./components/who-to-follow"
-import { WhoToFollowSkeleton } from "./components/who-to-follow-skeleton"
 
 export function TrendsSidebar() {
   return (

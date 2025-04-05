@@ -1,6 +1,6 @@
-import { PostEditor } from "@/components/posts/editor/post-editor"
 import { TrendsSidebar } from "@/components/shared/trends-sidebar"
 
+import { PostEditor } from "./_components/post-editor"
 import { PostsList } from "./_components/posts-list"
 
 export default function HomePage() {

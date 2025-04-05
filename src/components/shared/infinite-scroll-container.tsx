@@ -4,7 +4,7 @@ interface InfiniteScrollContainerProps extends React.ComponentProps<"div"> {
   onBottomReached: () => void
 }
 
-export default function InfiniteScrollContainer({
+export function InfiniteScrollContainer({
   children,
   onBottomReached,
   className,

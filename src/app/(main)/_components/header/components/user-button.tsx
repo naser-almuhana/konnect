@@ -40,7 +40,9 @@ export function UserButton() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <UserAvatar src={data?.user.image || ""} />
+        <button className="flex-none cursor-pointer rounded-full">
+          <UserAvatar src={data?.user.image} />
+        </button>
       </DropdownMenuTrigger>
       <DropdownMenuContent>
         <DropdownMenuLabel>

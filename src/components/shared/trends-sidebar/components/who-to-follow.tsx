@@ -7,6 +7,7 @@ import { db } from "@/lib/db"
 
 import { FollowButton } from "@/components/shared/follow-button"
 import { UserAvatar } from "@/components/shared/user-avatar"
+import { UserTooltip } from "@/components/shared/user-tooltip"
 
 export async function WhoToFollow() {
   const { user } = await validateRequest()
@@ -34,20 +35,22 @@ export async function WhoToFollow() {
       <div className="text-xl font-bold">Who to follow</div>
       {usersToFollow.map((user) => (
         <div key={user.id} className="flex items-center justify-between gap-3">
-          <Link
-            href={`/users/${user.username}`}
-            className="flex items-center gap-3"
-          >
-            <UserAvatar src={user.image || ""} className="flex-none" />
-            <div>
-              <p className="line-clamp-1 font-semibold break-all hover:underline">
-                {user.displayUsername}
-              </p>
-              <p className="text-muted-foreground line-clamp-1 break-all">
-                @{user.username}
-              </p>
-            </div>
-          </Link>
+          <UserTooltip user={user}>
+            <Link
+              href={`/users/${user.username}`}
+              className="flex items-center gap-3"
+            >
+              <UserAvatar src={user.image} className="flex-none" />
+              <div>
+                <p className="line-clamp-1 font-semibold break-all hover:underline">
+                  {user.displayUsername}
+                </p>
+                <p className="text-muted-foreground line-clamp-1 break-all">
+                  @{user.username}
+                </p>
+              </div>
+            </Link>
+          </UserTooltip>
 
           <FollowButton
             userId={user.id}

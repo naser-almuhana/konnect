@@ -1,4 +1,7 @@
 import { Prisma } from "@prisma/client"
+import { z } from "zod"
+
+import { updateUserProfileSchema } from "@/lib/validation"
 
 // USER
 export function getUserDataSelect(loggedInUserId: string) {
@@ -52,3 +55,5 @@ export interface FollowerInfo {
   followersCount: number
   isFollowedByUser: boolean
 }
+
+export type UpdateUserProfileValues = z.infer<typeof updateUserProfileSchema>

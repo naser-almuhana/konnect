@@ -4,7 +4,8 @@ import { useState } from "react"
 
 import { MoreHorizontalIcon, Trash2Icon } from "lucide-react"
 
-import { useDeletePostMutation } from "@/components/posts/mutations"
+import { useDeletePostMutation } from "@/hooks/use-delete-post.mutation"
+
 import { DeleteDialog } from "@/components/shared/delete-dialog"
 import { Button } from "@/components/ui/button"
 import {

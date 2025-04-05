@@ -6,6 +6,7 @@ import { formatNumber } from "@/lib/utils"
 
 import { FollowButton } from "@/components/shared/follow-button"
 import { FollowerCount } from "@/components/shared/follower-count"
+import { Linkify } from "@/components/shared/linkify"
 import { UserAvatar } from "@/components/shared/user-avatar"
 import { Separator } from "@/components/ui/separator"
 
@@ -27,9 +28,9 @@ export function UserProfile({ user, loggedInUserId }: UserProfileProps) {
   return (
     <div className="bg-card h-fit w-full space-y-5 rounded-2xl p-5 shadow-sm">
       <UserAvatar
-        src={user.image || ""}
-        size={250}
-        className="mx-auto size-full max-h-60 max-w-60 rounded-full"
+        src={user.image}
+        className="mx-auto size-full max-h-50 max-w-50"
+        size={200}
       />
       <div className="flex flex-wrap gap-3 sm:flex-nowrap">
         <div className="me-auto space-y-3">
@@ -57,9 +58,11 @@ export function UserProfile({ user, loggedInUserId }: UserProfileProps) {
       {user.bio && (
         <>
           <Separator />
-          <div className="overflow-hidden break-words whitespace-pre-line">
-            {user.bio}
-          </div>
+          <Linkify>
+            <div className="overflow-hidden break-words whitespace-pre-line">
+              {user.bio}
+            </div>
+          </Linkify>
         </>
       )}
     </div>
