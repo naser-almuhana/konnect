@@ -1,6 +1,11 @@
 "use client"
 
-import { QueryKey, useMutation, useQueryClient } from "@tanstack/react-query"
+import {
+  QueryKey,
+  useMutation,
+  useQuery,
+  useQueryClient,
+} from "@tanstack/react-query"
 import { Heart } from "lucide-react"
 import { toast } from "sonner"
 
@@ -8,8 +13,6 @@ import type { LikeInfo } from "@/types/db.types"
 
 import { kyInstance } from "@/lib/ky"
 import { cn } from "@/lib/utils"
-
-import { useLikeInfo } from "@/hooks/use-like-info"
 
 interface LikeButtonProps {
   postId: string
@@ -19,9 +22,15 @@ interface LikeButtonProps {
 export function LikeButton({ postId, initialState }: LikeButtonProps) {
   const queryClient = useQueryClient()
 
-  const { data } = useLikeInfo(postId, initialState)
+  const queryKey: QueryKey = ["like-info", postId]
 
-  const queryKey = ["like-info", postId] satisfies QueryKey
+  const { data } = useQuery({
+    queryKey,
+    queryFn: () =>
+      kyInstance.get(`/api/posts/${postId}/likes`).json<LikeInfo>(),
+    initialData: initialState,
+    staleTime: Infinity,
+  })
 
   const { mutate } = useMutation({
     mutationFn: () =>
@@ -59,17 +68,11 @@ export function LikeButton({ postId, initialState }: LikeButtonProps) {
       className="group flex cursor-pointer items-center gap-2"
       type="button"
     >
-      {/* <Heart
-        className={cn(
-          "size-5",
-          data.isLikedByUser && "fill-red-500 text-red-500",
-        )}
-      /> */}
       <Heart
         className={cn(
           "size-5 transition-all duration-300",
           data.isLikedByUser
-            ? "scale-110 fill-red-500 text-red-500"
+            ? "fill-red-500 text-red-500"
             : "text-muted-foreground group-hover:text-red-400",
         )}
       />

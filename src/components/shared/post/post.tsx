@@ -12,6 +12,7 @@ import { UserAvatar } from "@/components/shared/user-avatar"
 import { UserTooltip } from "@/components/shared/user-tooltip"
 import { Separator } from "@/components/ui/separator"
 
+import { BookmarkButton } from "./components/bookmark-button"
 import { LikeButton } from "./components/like-button"
 import { MediaPreviewList } from "./components/media-preview-list"
 import { PostMoreMenu } from "./components/post-more-menu"
@@ -73,6 +74,15 @@ export function Post({ post }: PostProps) {
               likesCount: post._count.likes,
               isLikedByUser: post.likes.some(
                 (like) => like.userId === data?.user.id,
+              ),
+            }}
+          />
+
+          <BookmarkButton
+            postId={post.id}
+            initialState={{
+              isBookmarkedByUser: post.bookmarks.some(
+                (bookmark) => bookmark.userId === data?.user.id,
               ),
             }}
           />
