@@ -10,7 +10,9 @@ import { formatRelativeDate } from "@/lib/utils"
 import { Linkify } from "@/components/shared/linkify"
 import { UserAvatar } from "@/components/shared/user-avatar"
 import { UserTooltip } from "@/components/shared/user-tooltip"
+import { Separator } from "@/components/ui/separator"
 
+import { LikeButton } from "./components/like-button"
 import { MediaPreviewList } from "./components/media-preview-list"
 import { PostMoreMenu } from "./components/post-more-menu"
 
@@ -58,10 +60,24 @@ export function Post({ post }: PostProps) {
       <Linkify>
         <div className="break-words whitespace-pre-line">{post.content}</div>
       </Linkify>
-
       {!!post.attachments.length && (
         <MediaPreviewList attachments={post.attachments} />
       )}
+
+      <Separator />
+      <div className="flex justify-between gap-5">
+        <div className="flex items-center gap-5">
+          <LikeButton
+            postId={post.id}
+            initialState={{
+              likesCount: post._count.likes,
+              isLikedByUser: post.likes.some(
+                (like) => like.userId === data?.user.id,
+              ),
+            }}
+          />
+        </div>
+      </div>
     </article>
   )
 }

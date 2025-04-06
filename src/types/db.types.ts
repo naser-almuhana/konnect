@@ -40,6 +40,19 @@ export function getPostDataInclude(loggedInUserId: string) {
       select: getUserDataSelect(loggedInUserId),
     },
     attachments: true,
+    likes: {
+      where: {
+        userId: loggedInUserId,
+      },
+      select: {
+        userId: true,
+      },
+    },
+    _count: {
+      select: {
+        likes: true,
+      },
+    },
   } satisfies Prisma.PostInclude
 }
 
@@ -55,6 +68,11 @@ export interface PostsPage {
 export interface FollowerInfo {
   followersCount: number
   isFollowedByUser: boolean
+}
+
+export interface LikeInfo {
+  likesCount: number
+  isLikedByUser: boolean
 }
 
 export type UpdateUserProfileValues = z.infer<typeof updateUserProfileSchema>

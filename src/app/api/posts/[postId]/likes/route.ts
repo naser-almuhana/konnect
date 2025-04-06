@@ -1,41 +1,41 @@
-import type { UserIdParams } from "@/types"
-import type { FollowerInfo } from "@/types/db.types"
+import type { PostIdParams } from "@/types"
+import type { LikeInfo } from "@/types/db.types"
 
 import { validateRequest } from "@/lib/auth"
 import { db } from "@/lib/db"
 
-export async function GET(req: Request, { params }: UserIdParams) {
+export async function GET(req: Request, { params }: PostIdParams) {
   try {
-    const { userId } = await params
+    const { postId } = await params
 
     const { user: loggedInUser } = await validateRequest()
     if (!loggedInUser)
       return Response.json({ error: "Unauthorized" }, { status: 401 })
 
-    const user = await db.user.findUnique({
-      where: { id: userId },
+    const post = await db.post.findUnique({
+      where: { id: postId },
       select: {
-        followers: {
+        likes: {
           where: {
-            followerId: loggedInUser.id,
+            userId: loggedInUser.id,
           },
           select: {
-            followerId: true,
+            userId: true,
           },
         },
         _count: {
           select: {
-            followers: true,
+            likes: true,
           },
         },
       },
     })
-    if (!user)
-      return Response.json({ error: "User not found" }, { status: 404 })
+    if (!post)
+      return Response.json({ error: "Post not found" }, { status: 404 })
 
-    const data: FollowerInfo = {
-      followersCount: user._count.followers,
-      isFollowedByUser: !!user.followers.length,
+    const data: LikeInfo = {
+      likesCount: post._count.likes,
+      isLikedByUser: !!post.likes.length,
     }
 
     return Response.json(data)
@@ -45,26 +45,35 @@ export async function GET(req: Request, { params }: UserIdParams) {
   }
 }
 
-export async function POST(req: Request, { params }: UserIdParams) {
+export async function POST(req: Request, { params }: PostIdParams) {
   try {
-    const { userId } = await params
+    const { postId } = await params
 
     const { user: loggedInUser } = await validateRequest()
     if (!loggedInUser)
       return Response.json({ error: "Unauthorized" }, { status: 401 })
 
+    const post = await db.post.findUnique({
+      where: { id: postId },
+      select: {
+        userId: true,
+      },
+    })
+    if (!post)
+      return Response.json({ error: "Post not found" }, { status: 404 })
+
     await db.$transaction([
       // upsert will ignore if there is problem instead of create
-      db.follow.upsert({
+      db.like.upsert({
         where: {
-          followerId_followingId: {
-            followerId: loggedInUser.id,
-            followingId: userId,
+          userId_postId: {
+            userId: loggedInUser.id,
+            postId,
           },
         },
         create: {
-          followerId: loggedInUser.id,
-          followingId: userId,
+          userId: loggedInUser.id,
+          postId,
         },
         update: {},
       }),
@@ -77,9 +86,9 @@ export async function POST(req: Request, { params }: UserIdParams) {
   }
 }
 
-export async function DELETE(req: Request, { params }: UserIdParams) {
+export async function DELETE(req: Request, { params }: PostIdParams) {
   try {
-    const { userId } = await params
+    const { postId } = await params
 
     const { user: loggedInUser } = await validateRequest()
     if (!loggedInUser)
@@ -87,10 +96,10 @@ export async function DELETE(req: Request, { params }: UserIdParams) {
 
     await db.$transaction([
       // delete many will not throw error of not exiting
-      db.follow.deleteMany({
+      db.like.deleteMany({
         where: {
-          followerId: loggedInUser.id,
-          followingId: userId,
+          userId: loggedInUser.id,
+          postId,
         },
       }),
     ])

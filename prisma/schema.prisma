@@ -24,6 +24,7 @@ model User {
   posts           Post[]
   following       Follow[]  @relation("Following")
   followers       Follow[]  @relation("Followers")
+  likes           Like[]
 
   @@map("users")
 }
@@ -90,6 +91,7 @@ model Post {
   userId      String
   user        User    @relation(fields: [userId], references: [id], onDelete: Cascade)
   attachments Media[]
+  likes       Like[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -112,4 +114,14 @@ model Media {
   createdAt DateTime @default(now())
 
   @@map("post_media")
+}
+
+model Like {
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  postId String
+  post   Post   @relation(fields: [postId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, postId])
+  @@map("likes")
 }
