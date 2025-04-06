@@ -33,7 +33,7 @@ export function useUpdateProfileMutation() {
     },
     onSuccess: async ([updatedUser, uploadResult]) => {
       const newImageUrl = uploadResult?.[0].serverData?.userImage
-      console.log({ uploadResult })
+
       const queryFilter = {
         queryKey: ["post-feed"],
       } satisfies QueryFilters

@@ -26,6 +26,16 @@ export function formatNumber(n: number): string {
   }).format(n)
 }
 
+// Utility to convert any string to a safe URL-friendly format
+export function slugify(str: string): string {
+  return str
+    .toLowerCase()
+    .trim()
+    .replace(/[^\w\s-]/g, "") // remove non-alphanumerics
+    .replace(/[\s_-]+/g, "-") // replace spaces/underscores with dashes
+    .replace(/^-+|-+$/g, "") // remove leading/trailing dashes
+}
+
 // A delay function for test
 export function delay(ms: number = 2000) {
   return new Promise((resolve) => setTimeout(resolve, ms))

@@ -11,23 +11,14 @@ export const ourFileRouter = {
   // Define as many FileRoutes as you like, each with a unique routeSlug
   userImage: f({
     image: {
-      /**
-       * For full list of options and defaults, see the File Route API reference
-       * @see https://docs.uploadthing.com/file-routes#route-config
-       */
       maxFileSize: "512KB",
       maxFileCount: 1,
     },
   })
     // Set permissions and file types for this FileRoute
     .middleware(async () => {
-      // This code runs on your server before upload
       const { user } = await validateRequest()
-
-      // If you throw, the user will not be able to upload
       if (!user) throw new UploadThingError("Unauthorized")
-
-      // Whatever is returned here is accessible in onUploadComplete as `metadata`
       return { user }
     })
     .onUploadComplete(async ({ metadata, file }) => {
@@ -58,6 +49,29 @@ export const ourFileRouter = {
       ])
 
       return { userImage: newUserImageUrl }
+    }),
+
+  // Attachment
+  attachment: f({
+    image: { maxFileSize: "4MB", maxFileCount: 5 },
+    video: { maxFileSize: "64MB", maxFileCount: 5 },
+  })
+    .middleware(async () => {
+      const { user } = await validateRequest()
+      if (!user) throw new UploadThingError("Unauthorized")
+      return {}
+    })
+    .onUploadComplete(async ({ file }) => {
+      const mediaUrl = file.ufsUrl
+
+      const media = await db.media.create({
+        data: {
+          url: mediaUrl,
+          type: file.type.startsWith("image") ? "IMAGE" : "VIDEO",
+        },
+      })
+
+      return { mediaId: media.id }
     }),
 } satisfies FileRouter
 

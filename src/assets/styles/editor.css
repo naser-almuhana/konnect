@@ -8,4 +8,7 @@
 
 .tiptap.ProseMirror {
   outline: none;
+  white-space: pre-wrap; /* respects line breaks */
+  word-break: break-word; /* breaks long words */
+  overflow-wrap: anywhere; /* additional safety */
 }

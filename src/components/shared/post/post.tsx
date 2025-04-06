@@ -9,6 +9,7 @@ import { Linkify } from "@/components/shared/linkify"
 import { UserAvatar } from "@/components/shared/user-avatar"
 import { UserTooltip } from "@/components/shared/user-tooltip"
 
+import { MediaPreviewList } from "./components/media-preview-list"
 import { PostMoreMenu } from "./components/post-more-menu"
 
 interface PostProps {
@@ -18,7 +19,7 @@ interface PostProps {
 export function Post({ post }: PostProps) {
   const { data } = useSession()
   return (
-    <article className="group/post bg-card h-40 space-y-3 rounded-2xl p-5 shadow-sm">
+    <article className="group/post bg-card space-y-3 rounded-2xl p-5 shadow-sm">
       <div className="flex justify-between gap-3">
         <div className="flex flex-wrap gap-3">
           <UserTooltip user={post.user}>
@@ -54,6 +55,10 @@ export function Post({ post }: PostProps) {
       <Linkify>
         <div className="break-words whitespace-pre-line">{post.content}</div>
       </Linkify>
+
+      {!!post.attachments.length && (
+        <MediaPreviewList attachments={post.attachments} />
+      )}
     </article>
   )
 }

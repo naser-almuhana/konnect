@@ -7,12 +7,12 @@ import { Button } from "@/components/ui/button"
 export function GithubButton() {
   return (
     <Link href={GITHUB_REPO_URL} target="_blank">
-      <Button
-        variant="ghost"
-        size="icon"
-        className="cursor-pointer rounded-full"
-      >
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 98 92">
+      <Button variant="ghost" size="icon" className="rounded-full">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          className="size-5"
+          viewBox="0 0 98 92"
+        >
           <path
             fillRule="evenodd"
             clipRule="evenodd"

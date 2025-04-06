@@ -6,17 +6,23 @@ import { validateRequest } from "@/lib/auth"
 import { db } from "@/lib/db"
 import { createPostSchema } from "@/lib/validation"
 
-export async function createPost(input: { content: string }) {
+export async function createPost(input: {
+  content: string
+  mediaIds: string[]
+}) {
+  const { content, mediaIds } = createPostSchema.parse(input)
+
   const { user } = await validateRequest()
   if (!user) throw new Error("Unauthorized")
-
-  const { content } = createPostSchema.parse(input)
 
   const newPost = await db.post.create({
     include: getPostDataInclude(user.id),
     data: {
       content,
       userId: user.id,
+      attachments: {
+        connect: mediaIds.map((id) => ({ id })),
+      },
     },
   })
 
