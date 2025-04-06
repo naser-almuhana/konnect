@@ -46,7 +46,6 @@ export function BookmarkButton({ postId, initialState }: BookmarkButtonProps) {
       queryClient.setQueryData<BookmarkInfo>(queryKey, () => ({
         isBookmarkedByUser: !previousState?.isBookmarkedByUser,
       }))
-
       return { previousState }
     },
 

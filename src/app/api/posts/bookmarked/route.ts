@@ -14,21 +14,26 @@ export async function GET(req: NextRequest) {
     const perPage = PER_PAGE
 
     const { user } = await validateRequest()
-    if (!user) {
-      return Response.json({ error: "Unauthorized" }, { status: 401 })
-    }
+    if (!user) return Response.json({ error: "Unauthorized" }, { status: 401 })
 
-    const posts = await db.post.findMany({
-      include: getPostDataInclude(user.id),
+    const bookmarks = await db.bookmark.findMany({
+      where: {
+        userId: user.id,
+      },
+      include: {
+        post: {
+          include: getPostDataInclude(user.id),
+        },
+      },
       orderBy: { createdAt: "desc" },
       take: perPage + 1,
       cursor: cursor ? { id: cursor } : undefined,
     })
 
-    const nextCursor = posts.length > perPage ? posts[perPage].id : null
+    const nextCursor = bookmarks.length > perPage ? bookmarks[perPage].id : null
 
     const data: PostsPage = {
-      posts: posts.slice(0, perPage),
+      posts: bookmarks.slice(0, perPage).map((bookmark) => bookmark.post),
       nextCursor,
     }
 
