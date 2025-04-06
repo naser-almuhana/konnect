@@ -8,7 +8,7 @@ import { kyInstance } from "@/lib/ky"
 
 import { InfiniteScrollContainer } from "@/components/shared/infinite-scroll-container"
 import { Post } from "@/components/shared/post"
-import { PostsSkeleton } from "@/components/skeletons/posts-skeleton"
+import { PostsSkeleton } from "@/components/shared/skeletons/posts-skeleton"
 
 export function FollowingFeed() {
   const {

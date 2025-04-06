@@ -1,7 +1,7 @@
 import { Suspense } from "react"
 
-import { TrendingTopicsSkeleton } from "@/components/skeletons/trending-topics-skeleton"
-import { WhoToFollowSkeleton } from "@/components/skeletons/who-to-follow-skeleton"
+import { TrendingTopicsSkeleton } from "@/components/shared/skeletons/trending-topics-skeleton"
+import { WhoToFollowSkeleton } from "@/components/shared/skeletons/who-to-follow-skeleton"
 
 import { TrendingTopics } from "./components/trending-topics"
 import { WhoToFollow } from "./components/who-to-follow"

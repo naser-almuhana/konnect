@@ -1,3 +1,5 @@
+"use client"
+
 import Link from "next/link"
 
 import type { PostData } from "@/types/db.types"
@@ -18,6 +20,7 @@ interface PostProps {
 
 export function Post({ post }: PostProps) {
   const { data } = useSession()
+
   return (
     <article className="group/post bg-card space-y-3 rounded-2xl p-5 shadow-sm">
       <div className="flex justify-between gap-3">

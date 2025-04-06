@@ -1,10 +1,26 @@
 "use server"
 
+import { notFound } from "next/navigation"
+import { cache } from "react"
+
 import { getPostDataInclude } from "@/types/db.types"
 
 import { validateRequest } from "@/lib/auth"
 import { db } from "@/lib/db"
 import { createPostSchema } from "@/lib/validation"
+
+export const getPost = cache(async (postId: string, loggedInUserId: string) => {
+  const post = await db.post.findUnique({
+    where: {
+      id: postId,
+    },
+    include: getPostDataInclude(loggedInUserId),
+  })
+
+  if (!post) notFound()
+
+  return post
+})
 
 export async function createPost(input: {
   content: string
