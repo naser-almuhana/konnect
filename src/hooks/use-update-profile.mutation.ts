@@ -13,12 +13,15 @@ import { toast } from "sonner"
 import { PostsPage, UpdateUserProfileValues } from "@/types/db.types"
 
 import { updateUserProfile } from "@/lib/actions/user.actions"
+import { useSession } from "@/lib/auth-client"
 import { useUploadThing } from "@/lib/uploadthing"
 
 type MutationFnOptions = { values: UpdateUserProfileValues; userImage?: File }
 
 export function useUpdateProfileMutation() {
   const router = useRouter()
+
+  const { refetch } = useSession()
 
   const queryClient = useQueryClient()
 
@@ -65,7 +68,7 @@ export function useUpdateProfileMutation() {
           }
         },
       )
-
+      refetch()
       router.refresh()
 
       toast.success("Profile updated")
