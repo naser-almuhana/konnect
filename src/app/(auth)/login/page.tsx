@@ -4,6 +4,8 @@ import Link from "next/link"
 
 import loginImage from "@/assets/login-image.jpg"
 
+import { GithubLoginButton } from "./_components/github-login-button"
+import { GoogleLoginButton } from "./_components/google-login-button"
 import { LoginForm } from "./_components/login-form"
 
 export const metadata: Metadata = {
@@ -16,7 +18,8 @@ export default function LoginPage() {
       <div className="w-full space-y-10 overflow-y-auto p-10 md:w-1/2">
         <h1 className="text-center text-3xl font-bold">Login to konnect</h1>
         <div className="space-y-5">
-          {/* <GoogleLoginButton /> */}
+          <GoogleLoginButton />
+          <GithubLoginButton />
           <div className="flex items-center gap-3">
             <div className="bg-muted h-px flex-1" />
             <span>OR</span>
