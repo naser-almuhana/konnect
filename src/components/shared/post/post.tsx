@@ -1,6 +1,7 @@
 "use client"
 
 import Link from "next/link"
+import { useState } from "react"
 
 import type { PostData } from "@/types/db.types"
 
@@ -13,6 +14,8 @@ import { UserTooltip } from "@/components/shared/user-tooltip"
 import { Separator } from "@/components/ui/separator"
 
 import { BookmarkButton } from "./components/bookmark-button"
+import { CommentButton } from "./components/comment-button"
+import { CommentList } from "./components/comment-list"
 import { LikeButton } from "./components/like-button"
 import { MediaPreviewList } from "./components/media-preview-list"
 import { PostMoreMenu } from "./components/post-more-menu"
@@ -23,6 +26,8 @@ interface PostProps {
 
 export function Post({ post }: PostProps) {
   const { data } = useSession()
+
+  const [showComments, setShowComments] = useState(false)
 
   return (
     <article className="group/post bg-card space-y-3 rounded-2xl p-5 shadow-sm">
@@ -78,16 +83,21 @@ export function Post({ post }: PostProps) {
             }}
           />
 
-          <BookmarkButton
-            postId={post.id}
-            initialState={{
-              isBookmarkedByUser: post.bookmarks.some(
-                (bookmark) => bookmark.userId === data?.user.id,
-              ),
-            }}
+          <CommentButton
+            post={post}
+            onClick={() => setShowComments(!showComments)}
           />
         </div>
+        <BookmarkButton
+          postId={post.id}
+          initialState={{
+            isBookmarkedByUser: post.bookmarks.some(
+              (bookmark) => bookmark.userId === data?.user.id,
+            ),
+          }}
+        />
       </div>
+      {showComments && <CommentList post={post} />}
     </article>
   )
 }

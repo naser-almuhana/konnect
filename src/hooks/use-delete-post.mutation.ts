@@ -4,7 +4,7 @@ import { usePathname, useRouter } from "next/navigation"
 
 import {
   InfiniteData,
-  QueryFilters,
+  QueryKey,
   useMutation,
   useQueryClient,
 } from "@tanstack/react-query"
@@ -24,14 +24,14 @@ export function useDeletePostMutation() {
     mutationFn: deletePost, // Function to execute when mutation is triggered
     onSuccess: async (deletedPost) => {
       // Define query filter for the post feed
-      const queryFilter = { queryKey: ["post-feed"] } satisfies QueryFilters
+      const queryKey: QueryKey = ["post-feed"]
 
       // Cancel any ongoing queries related to the post feed to prevent conflicts
-      await queryClient.cancelQueries(queryFilter)
+      await queryClient.cancelQueries({ queryKey })
 
       // Update cached data for the post feed to remove the deleted post
-      queryClient.setQueriesData<InfiniteData<PostsPage, string | null>>(
-        queryFilter,
+      queryClient.setQueryData<InfiniteData<PostsPage, string | null>>(
+        queryKey,
         (oldData) => {
           if (!oldData) return // Return early if no cached data exists
 

@@ -26,3 +26,7 @@ export const updateUserProfileSchema = z.object({
   displayUsername: requiredString,
   bio: z.string().max(1000, "Must be at most 1000 characters"),
 })
+
+export const createCommentSchema = z.object({
+  content: requiredString,
+})

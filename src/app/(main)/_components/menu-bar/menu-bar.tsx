@@ -3,6 +3,7 @@ import Link from "next/link"
 import { BookmarkIcon, HomeIcon } from "lucide-react"
 
 import { validateRequest } from "@/lib/auth"
+import { db } from "@/lib/db"
 
 import { Button } from "@/components/ui/button"
 
@@ -11,8 +12,16 @@ import { NotificationsButton } from "./components/notifications-button"
 
 export async function MenuBar({ className }: React.ComponentProps<"div">) {
   const { user } = await validateRequest()
-
   if (!user) return null
+
+  const [unreadNotificationsCount] = await Promise.all([
+    db.notification.count({
+      where: {
+        recipientId: user.id,
+        read: false,
+      },
+    }),
+  ])
 
   return (
     <div className={className}>
@@ -23,14 +32,14 @@ export async function MenuBar({ className }: React.ComponentProps<"div">) {
         asChild
       >
         <Link href="/">
-          <HomeIcon />
+          <HomeIcon className="size-5" />
           <span className="hidden lg:inline">Home</span>
         </Link>
       </Button>
-      <NotificationsButton />
-      {/* <NotificationsButton
+
+      <NotificationsButton
         initialState={{ unreadCount: unreadNotificationsCount }}
-      /> */}
+      />
       <MessagesButton />
       {/* <MessagesButton initialState={{ unreadCount: unreadMessagesCount }} /> */}
       <Button
@@ -40,7 +49,7 @@ export async function MenuBar({ className }: React.ComponentProps<"div">) {
         asChild
       >
         <Link href="/bookmarks">
-          <BookmarkIcon />
+          <BookmarkIcon className="size-5" />
           <span className="hidden lg:inline">Bookmarks</span>
         </Link>
       </Button>

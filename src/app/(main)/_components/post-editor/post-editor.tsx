@@ -92,7 +92,6 @@ export function PostEditor() {
             editor={editor}
             className={cn(
               "bg-muted max-h-80 min-h-20 w-full overflow-y-auto rounded-2xl px-5 py-3",
-
               isDragActive && "outline-dashed",
             )}
             onPaste={onPaste}

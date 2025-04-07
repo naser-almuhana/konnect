@@ -103,7 +103,11 @@ export function EditProfileDialog({
                 <FormItem>
                   <FormLabel>Display name</FormLabel>
                   <FormControl>
-                    <Input placeholder="Your display name" {...field} />
+                    <Input
+                      placeholder="Your display name"
+                      disabled={mutation.isPending}
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -117,6 +121,7 @@ export function EditProfileDialog({
                   <FormLabel>Bio</FormLabel>
                   <FormControl>
                     <Textarea
+                      disabled={mutation.isPending}
                       placeholder="Tell us a little bit about yourself"
                       className="resize-none"
                       {...field}

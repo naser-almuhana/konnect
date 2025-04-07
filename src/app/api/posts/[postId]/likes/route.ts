@@ -63,7 +63,6 @@ export async function POST(req: Request, { params }: PostIdParams) {
       return Response.json({ error: "Post not found" }, { status: 404 })
 
     await db.$transaction([
-      // upsert will ignore if there is problem instead of create
       db.like.upsert({
         where: {
           userId_postId: {
@@ -77,6 +76,18 @@ export async function POST(req: Request, { params }: PostIdParams) {
         },
         update: {},
       }),
+      ...(loggedInUser.id !== post.userId
+        ? [
+            db.notification.create({
+              data: {
+                issuerId: loggedInUser.id,
+                recipientId: post.userId,
+                postId,
+                type: "LIKE",
+              },
+            }),
+          ]
+        : []),
     ])
 
     return new Response()
@@ -94,12 +105,29 @@ export async function DELETE(req: Request, { params }: PostIdParams) {
     if (!loggedInUser)
       return Response.json({ error: "Unauthorized" }, { status: 401 })
 
+    const post = await db.post.findUnique({
+      where: { id: postId },
+      select: {
+        userId: true,
+      },
+    })
+    if (!post)
+      return Response.json({ error: "Post not found" }, { status: 404 })
+
     await db.$transaction([
       // delete many will not throw error of not exiting
       db.like.deleteMany({
         where: {
           userId: loggedInUser.id,
           postId,
+        },
+      }),
+      db.notification.deleteMany({
+        where: {
+          issuerId: loggedInUser.id,
+          recipientId: post.userId,
+          postId,
+          type: "LIKE",
         },
       }),
     ])

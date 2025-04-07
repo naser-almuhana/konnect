@@ -68,6 +68,13 @@ export async function POST(req: Request, { params }: UserIdParams) {
         },
         update: {},
       }),
+      db.notification.create({
+        data: {
+          issuerId: loggedInUser.id,
+          recipientId: userId,
+          type: "FOLLOW",
+        },
+      }),
     ])
 
     return new Response()
@@ -91,6 +98,13 @@ export async function DELETE(req: Request, { params }: UserIdParams) {
         where: {
           followerId: loggedInUser.id,
           followingId: userId,
+        },
+      }),
+      db.notification.deleteMany({
+        where: {
+          issuerId: loggedInUser.id,
+          recipientId: userId,
+          type: "FOLLOW",
         },
       }),
     ])
