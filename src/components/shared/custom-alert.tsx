@@ -12,7 +12,7 @@ interface CustomAlertProps {
 }
 
 export function CustomAlert({
-  title = "Error",
+  title,
   description,
   icon = { name: "AlertCircle" },
   variant = "destructive",
@@ -20,7 +20,7 @@ export function CustomAlert({
   return (
     <Alert variant={variant}>
       <CustomIcon {...icon} />
-      <AlertTitle>{title}</AlertTitle>
+      {title && <AlertTitle>{title}</AlertTitle>}
       <AlertDescription>{description}</AlertDescription>
     </Alert>
   )

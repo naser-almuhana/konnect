@@ -17,3 +17,4 @@ export type IconType = {
 export type UsernameParams = { params: Promise<{ username: string }> }
 export type UserIdParams = { params: Promise<{ userId: string }> }
 export type PostIdParams = { params: Promise<{ postId: string }> }
+export type SearchParams = { searchParams: Promise<{ q: string }> }
