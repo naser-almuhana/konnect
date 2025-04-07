@@ -28,25 +28,17 @@ export const ourFileRouter = {
         const key = oldUserImage.split(
           `https://${process.env.NEXT_PUBLIC_UPLOADTHING_APP_ID}.ufs.sh/f/`,
         )[1]
-        await new UTApi().deleteFiles(key)
+        if (key) await new UTApi().deleteFiles(key)
       }
 
       const newUserImageUrl = file.ufsUrl
 
-      await Promise.all([
-        db.user.update({
-          where: { id: metadata.user.id },
-          data: {
-            image: newUserImageUrl,
-          },
-        }),
-        // streamServerClient.partialUpdateUser({
-        //   id: metadata.user.id,
-        //   set: {
-        //     image: newAvatarUrl,
-        //   },
-        // }),
-      ])
+      await db.user.update({
+        where: { id: metadata.user.id },
+        data: {
+          image: newUserImageUrl,
+        },
+      })
 
       return { userImage: newUserImageUrl }
     }),

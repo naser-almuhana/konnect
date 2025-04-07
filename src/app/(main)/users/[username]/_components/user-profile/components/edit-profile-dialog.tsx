@@ -58,7 +58,7 @@ export function EditProfileDialog({
 
   async function onSubmit(values: UpdateUserProfileValues) {
     const newUserImageFile = croppedUserImage
-      ? new File([croppedUserImage], `image-${user.username}.webp`, {
+      ? new File([croppedUserImage], `user-${user.username}-image.webp`, {
           type: "image/webp",
         })
       : undefined
