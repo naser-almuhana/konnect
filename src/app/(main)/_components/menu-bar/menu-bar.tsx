@@ -7,7 +7,6 @@ import { db } from "@/lib/db"
 
 import { Button } from "@/components/ui/button"
 
-import { MessagesButton } from "./components/messages-button"
 import { NotificationsButton } from "./components/notifications-button"
 
 export async function MenuBar({ className }: React.ComponentProps<"div">) {
@@ -40,8 +39,6 @@ export async function MenuBar({ className }: React.ComponentProps<"div">) {
       <NotificationsButton
         initialState={{ unreadCount: unreadNotificationsCount }}
       />
-      <MessagesButton />
-      {/* <MessagesButton initialState={{ unreadCount: unreadMessagesCount }} /> */}
       <Button
         variant="ghost"
         className="flex items-center justify-start gap-2"
