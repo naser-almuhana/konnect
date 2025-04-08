@@ -7,6 +7,7 @@ import { CommentData } from "@/types/db.types"
 import { useSession } from "@/lib/auth-client"
 import { formatRelativeDate } from "@/lib/utils"
 
+import { Linkify } from "@/components/shared/linkify"
 import { UserAvatar } from "@/components/shared/user-avatar"
 import { UserTooltip } from "@/components/shared/user-tooltip"
 
@@ -43,7 +44,7 @@ export function SingleComment({ comment }: SingleCommentProps) {
           </span>
         </div>
         <div className="max-w-full overflow-hidden break-words whitespace-pre-wrap sm:max-w-2xl">
-          {comment.content}
+          <Linkify>{comment.content}</Linkify>
         </div>
       </div>
       {comment.user.id === data?.user.id && (
