@@ -4,9 +4,10 @@ import { type Media } from "@prisma/client"
 
 interface MediaPreviewItemProps {
   media: Media
+  onClick?: () => void
 }
 
-export function MediaPreviewItem({ media }: MediaPreviewItemProps) {
+export function MediaPreviewItem({ media, onClick }: MediaPreviewItemProps) {
   if (media.type === "IMAGE") {
     return (
       <Image
@@ -14,8 +15,8 @@ export function MediaPreviewItem({ media }: MediaPreviewItemProps) {
         alt="Attachment"
         width={500}
         height={500}
-        className="mx-auto size-fit max-h-[30rem] rounded-2xl"
-        priority
+        className="mx-auto size-fit max-h-[30rem] cursor-pointer rounded-2xl"
+        onClick={onClick}
       />
     )
   }

@@ -45,7 +45,6 @@ export function ForYouFeed() {
       </p>
     )
   }
-
   if (status === "error") {
     return (
       <p className="text-destructive text-center">
