@@ -46,11 +46,7 @@ export function UserTooltip({ user, children }: UserTooltipProps) {
                 />
               </Link>
               {data?.user.id !== user.id && (
-                <FollowButton
-                  userId={user.id}
-                  initialState={followerState}
-                  variant="secondary"
-                />
+                <FollowButton userId={user.id} initialState={followerState} />
               )}
             </div>
             <div>

@@ -48,7 +48,7 @@ export function PostEditor() {
         italic: false,
       }),
       Placeholder.configure({
-        placeholder: "Write something or drag & drop media or paste url...",
+        placeholder: "Write something or drop media or paste url...",
       }),
     ],
   })

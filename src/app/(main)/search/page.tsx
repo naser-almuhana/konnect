@@ -22,7 +22,8 @@ export default async function SearchPage({ searchParams }: SearchParams) {
       <div className="w-full min-w-0 space-y-5">
         <div className="bg-card rounded-2xl p-5 shadow-sm">
           <h1 className="line-clamp-2 text-center text-2xl font-bold break-all">
-            Search results for &quot;{q}&quot;
+            Search results for{" "}
+            <span className="text-primary text-base">&quot;{q}&quot;</span>
           </h1>
         </div>
         <SearchResults query={q} />
