@@ -6,11 +6,11 @@ Konnect is a full-featured social media web app where users can connect, explore
 
 ## Test Users
 
-username : **maria**
-password : **123456789**
+- username : **maria**
+- password : **123456789**
 
-username : **john**
-password : **123456789**
+- username : **john**
+- password : **123456789**
 
 ## 🌟 Live Demo
 
