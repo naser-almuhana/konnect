@@ -15,6 +15,7 @@ export function MediaPreviewItem({ media }: MediaPreviewItemProps) {
         width={500}
         height={500}
         className="mx-auto size-fit max-h-[30rem] rounded-2xl"
+        priority
       />
     )
   }
