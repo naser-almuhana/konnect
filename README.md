@@ -2,7 +2,7 @@
 
 Konnect is a full-featured social media web app where users can connect, explore trending content, and engage with the community. Built with modern technologies like **Next.js 15**, **React 19**, **TailwindCSS** and more. Konnect supports rich post types, real-time interactions, and a smooth user experience. From following users to exploring hashtags, Konnect delivers the essence of a modern social platform.
 
-![Konnect Interface Preview](/public/images/screenshot.png)
+![Konnect Interface Preview](/public/screenshot.png)
 
 ## 🌟 Live Demo
 
