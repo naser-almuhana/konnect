@@ -4,15 +4,15 @@ import { type Attachment } from "@/hooks/use-media-upload"
 
 import { SingleAttachmentPreview } from "./single-attachment-preview"
 
-interface AttachmentPreviewsProps {
+interface AttachmentsPreviewProps {
   attachments: Attachment[]
   removeAttachment: (fileName: string) => void
 }
 
-export function AttachmentPreviews({
+export function AttachmentsPreview({
   attachments,
   removeAttachment,
-}: AttachmentPreviewsProps) {
+}: AttachmentsPreviewProps) {
   return (
     <div
       className={cn(

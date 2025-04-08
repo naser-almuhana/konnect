@@ -19,7 +19,7 @@ import { LoadingButton } from "@/components/shared/Loading-button"
 import { UserAvatar } from "@/components/shared/user-avatar"
 
 import { AddAttachmentsButton } from "./components/add-attachments-button"
-import { AttachmentPreviews } from "./components/attachments-preview"
+import { AttachmentsPreview } from "./components/attachments-preview"
 
 export function PostEditor() {
   const { data } = useSession()
@@ -100,7 +100,7 @@ export function PostEditor() {
         </div>
       </div>
       {!!attachments.length && (
-        <AttachmentPreviews
+        <AttachmentsPreview
           attachments={attachments}
           removeAttachment={removeAttachment}
         />
