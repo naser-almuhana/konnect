@@ -1,36 +1,82 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Konnect - Modern Social Networking Platform
 
-## Getting Started
+Konnect is a full-featured social media web app where users can connect, share, explore trending content, and engage with the community. Built with modern technologies like **Next.js 15**, **React 19**, **TailwindCSS** and more. Konnect supports rich post types, real-time interactions, and a smooth user experience. From following users to exploring hashtags, Konnect delivers the essence of a modern social platform.
 
-First, run the development server:
+![Konnect Interface Preview](/public/images/screenshot.png)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## 🌟 Live Demo
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- [Home](https://konnect-gules.vercel.app/)
+- [Login/Sign up](https://konnect-gules.vercel.app/login)
+- [Sample Post](https://konnect-gules.vercel.app/posts/cm98l55b00004cs8cyksv10sv)
+- [Search/Hashtags](https://konnect-gules.vercel.app/hashtag/chillvibes)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🌟 Key Features
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### ✨ Core Social Features
 
-## Learn More
+| Feature                 | Description                                                          |
+| ----------------------- | -------------------------------------------------------------------- |
+| **Smart Post Creation** | Rich content with text, images, videos, and automatic link detection |
+| **Intelligent Linking** | `@mentions` link to profiles, `#hashtags` become searchable links    |
+| **Engagement Tools**    | 👍Like, 💬comment, and 🔖bookmark posts                              |
+| **Follow System**       | Follow users to see their posts in your Following feed               |
+| **🔔Notifications**     | Real-time alerts for 👍likes, 💬comments, follows, and mentions      |
+| **Theme System**        | ☀️Light - 🌚dark mode                                                |
 
-To learn more about Next.js, take a look at the following resources:
+### 🔍 Discovery Features
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+| Feature               | Description                                                    |
+| --------------------- | -------------------------------------------------------------- |
+| **Unified Search**    | Search by username, name, hashtag, or any word in post content |
+| **Trending Hashtags** | Discover popular topics in real-time                           |
+| **User Suggestions**  | Algorithmically recommended accounts to follow                 |
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### 🔐 Authentication
 
-## Deploy on Vercel
+| Feature                  | Description                                   |
+| ------------------------ | --------------------------------------------- |
+| **Multi-provider login** | username/password, Google, and GitHub         |
+| **Secure sessions**      | Session-based authentication with Better-auth |
+| **Profile completion**   | Onboarding flow for new users                 |
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### 🏡 User Profiles
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+| Feature                   | Description                    |
+| ------------------------- | ------------------------------ |
+| **Customizable profiles** | Avatar, display name, bio      |
+| **Content organization**  | All user posts in one place    |
+| **Edit functionality**    | Update profile details anytime |
+
+### 🏗️ Technical Stack
+
+**Frontend**
+
+- Next.js 15 (App Router)
+- React 19 with Server Components
+- TailwindCSS v4 + ShadCN UI
+- React query for caching and clint fetching
+- Uploadthing for media uploads
+
+**Backend**
+
+- Prisma ORM
+- PostgreSQL (NeonDB)
+- Better-auth for authentication
+- API Routes
+- Server Actions
+
+## License
+
+MIT License
+
+Copyright (c) [2025] [Naser Almuhana]
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall

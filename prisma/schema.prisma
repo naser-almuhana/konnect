@@ -36,7 +36,7 @@ model User {
 model Session {
   id        String   @id
   userId    String
-  token     String
+  token     String   @unique
   expiresAt DateTime
   ipAddress String? //The IP address of the device
   userAgent String? //The user agent information of the device
@@ -162,6 +162,7 @@ enum NotificationType {
   LIKE
   FOLLOW
   COMMENT
+  MENTION
 }
 
 model Notification {

@@ -2,7 +2,12 @@ import Link from "next/link"
 import { JSX } from "react"
 
 import { NotificationType } from "@prisma/client"
-import { HeartIcon, MessageCircleIcon, User2Icon } from "lucide-react"
+import {
+  AtSignIcon,
+  HeartIcon,
+  MessageCircleIcon,
+  User2Icon,
+} from "lucide-react"
 
 import { NotificationData } from "@/types/db.types"
 
@@ -35,10 +40,15 @@ export function SingleNotification({ notification }: SingleNotificationProps) {
       icon: <HeartIcon className="size-7 fill-red-500 text-red-500" />,
       href: `/posts/${notification.postId}`,
     },
+    MENTION: {
+      message: `${notification.issuer.displayUsername} mention you in this post`,
+      icon: <AtSignIcon className="f size-7 text-green-500" />,
+      href: `/posts/${notification.postId}`,
+    },
   }
 
   const { message, icon, href } = notificationTypeMap[notification.type]
-
+  console.log({ notification })
   return (
     <Link href={href} className="block">
       <article

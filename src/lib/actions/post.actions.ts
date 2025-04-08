@@ -32,6 +32,18 @@ export async function createPost(input: {
   const { user } = await validateRequest()
   if (!user) throw new Error("Unauthorized")
 
+  // Extract mentions (@username)
+  const mentionedUsernames = content.match(/@(\w+)/g) || []
+
+  // Find users who were mentioned
+  const mentionedUsers = await db.user.findMany({
+    where: {
+      username: {
+        in: mentionedUsernames.map((mention) => mention.slice(1)), // Remove "@" from each mention
+      },
+    },
+  })
+
   const newPost = await db.post.create({
     include: getPostDataInclude(user.id),
     data: {
@@ -42,6 +54,19 @@ export async function createPost(input: {
       },
     },
   })
+
+  // Create notifications for mentioned users
+  for (const mentionedUser of mentionedUsers) {
+    await db.notification.create({
+      data: {
+        issuerId: user.id, // The user who made the post
+        recipientId: mentionedUser.id, // The mentioned user
+        postId: newPost.id,
+        type: "MENTION", // You can create a custom notification type for mentions
+      },
+    })
+  }
+
   revalidateTag("trending_topics")
 
   return newPost
