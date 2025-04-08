@@ -1,5 +1,6 @@
 "use server"
 
+import { revalidateTag } from "next/cache"
 import { notFound } from "next/navigation"
 import { cache } from "react"
 
@@ -41,6 +42,7 @@ export async function createPost(input: {
       },
     },
   })
+  revalidateTag("trending_topics")
 
   return newPost
 }
@@ -60,5 +62,6 @@ export async function deletePost(id: string) {
     include: getPostDataInclude(user.id),
   })
 
+  revalidateTag("trending_topics")
   return deletedPost
 }
