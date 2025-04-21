@@ -10,7 +10,7 @@ export const signupDefaultValues = {
 
 export const PER_PAGE = Number(process.env.PER_PAGE) || 5
 
-export const GITHUB_REPO_URL = "https://github.com/naseralmuhana/konnect"
+export const GITHUB_REPO_URL = "https://github.com/naser-almuhana/konnect"
 
 export const LINKIFY_USERNAME_REGEX = /(@[a-zA-Z0-9_-]+)/
 export const LINKIFY_HASHTAG_REGEX = /(#[a-zA-Z0-9]+)/
